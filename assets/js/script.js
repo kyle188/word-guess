@@ -3,7 +3,7 @@
 // word-blanks div
 var startBtn = document.querySelector('.start-button')
 var wordBlanksEl = document.querySelector('.word-blanks')
-
+var scoreEl = document.querySelector('score')
 
 
 var validChars = "abcdefghijklmnopqrstuvwxyz"
@@ -12,7 +12,17 @@ var words = ["javascript", "variable", "function", "object", "python", "localsto
 var word
 var guessedCharacters = []
 // score variable
+var score = 0
 // timeleft variable
+
+function checkWord() {
+   var wordFromDOM = wordBlanksEl.textContent.split(' ').join('')
+
+   if (word === wordFromDOM) {
+    score++
+    scoreEl.textContent = score
+   }
+}
 
 // reset the word-blanks - an _ for each letter of the new word
 function handleKeydown(event) {
@@ -43,10 +53,12 @@ function renderCharacters() {
     }
     //set textContent of wordBlanksEl to be str
     wordBlanksEl.textContent = str.trim()
+    checkWord()
 }
 
 
 function startRound() {
+    guessedCharacters 
 // get random word from words array
 var randomIndex = Math.floor(Math.random() * words.length)
 word = words[randomIndex]
