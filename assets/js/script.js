@@ -6,22 +6,39 @@ var wordBlanksEl = document.querySelector('.word-blanks')
 
 
 
+var validChars = "abcdefghijklmnopqrstuvwxyz"
 // array of words
 var words = ["javascript", "variable", "function", "object", "python", "localstorage", "timeout", "interval"]
 var word
+var guessedCharacters = []
 // score variable
 // timeleft variable
 
 // reset the word-blanks - an _ for each letter of the new word
+function handleKeydown(event) {
+    console.log(event.key)
+    if (validChars.includes(event.key)) {
+        //keep track of the characters we guessed
+        guessedCharacters.push(event.key)
+        //re-render wordBlanks.textContent
+        renderCharacters()
+    }
+}
+
 function renderCharacters() {
     // var to hold a new string
     var str = ""
     for (var i = 0; i < word.length; i++) {
+        var letter = word[i]
         //if weve guessed the character
+        if (guessedCharacters.includes(letter) ) {
         //push the character into str
         //else
         //add an _ into str
-        str += '_ '
+        str += letter + ' '
+        } else {
+            str += '_ '
+        }
 
     }
     //set textContent of wordBlanksEl to be str
@@ -38,6 +55,7 @@ renderCharacters()
 
 startBtn.addEventListener("click", startRound)
 
+document.addEventListener('keydown', handleKeydown)
 
 
 
